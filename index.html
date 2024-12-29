@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index Page</title>
+    <title>Open Redirect Vulnerability</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -31,9 +31,10 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to the Index Page</h1>
-    <p>Click below to navigate to the dashboard.</p>
-    <a href="?redirect=dashboard.html">Go to Dashboard</a>
+    <h1>Welcome to the Vulnerable Page</h1>
+    <p>Click below to go to the dashboard or an external URL (test open redirect).</p>
+    <a href="?redirect=dashboard.html">Go to Dashboard</a><br>
+    <a href="?redirect=https://www.yahoo.com">Go to Yahoo</a>
 
     <script>
         // Extract the redirect parameter from the URL
@@ -41,14 +42,8 @@
         const redirectParam = urlParams.get('redirect');
 
         if (redirectParam) {
-            // Allow redirection to both internal and external URLs
-            if (/^(http|https):\/\//.test(redirectParam)) {
-                // External URL
-                window.location.href = redirectParam;
-            } else {
-                // Internal URL (relative path)
-                window.location.href = redirectParam;
-            }
+            // Redirect to the URL specified in the redirect parameter
+            window.location.href = redirectParam;
         }
     </script>
 </body>
